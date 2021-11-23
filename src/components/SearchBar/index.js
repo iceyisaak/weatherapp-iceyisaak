@@ -3,9 +3,14 @@ const SearchBar = () => {
     <form>
       <h2>Search City</h2>
       <input
+        placeholder='e.g. Frankfurt'
       />
       <button>
-        Go
+        Check Weather
+      </button>
+      or
+      <button>
+        Check Weather in My Area
       </button>
     </form>
   );
