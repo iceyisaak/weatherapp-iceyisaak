@@ -20,20 +20,22 @@ const WeatherDisplay = () => {
 
   const {
     name,
-    sys
+    sys,
+    weather,
+    main
   } = weatherData;
 
   return (
     <div>
-      <p>{getDate}</p>
+      <p>23 NOV 2021</p>
       <h3>
-        {name}, DE
+        {name}, {name && sys.country}
       </h3>
       <p>
-        Windy
+        {weather && weather[0].main}
       </p>
       <h1>
-        9°C
+        {main && Math.round(main.temp)}°C
       </h1>
     </div>
   );

@@ -29,20 +29,21 @@ const WeatherInfoState = ({ children }) => {
     weatherData: {}
   };
   let city = 'frankfurt';
+  let unit = 'metric';
 
   const [state, dispatch] = useReducer(weatherInfoReducer, initialState);
 
   // const API_ENDPOINT = `https://api.openweathermap.org/data/2.5/weather?q=frankfurt&appid=${API_KEY}`;
   const API_ENDPOINT = `https://api.openweathermap.org/data/2.5/weather`;
   const appID = `&appid=${API_KEY}`;
-  const query = `?q=${city}`;
+  const queryLocation = `?q=${city}`;
+  let queryUnit = `&units=${unit}`;
 
   const fetchWeatherInfo = async () => {
-    const response = await fetch(`${API_ENDPOINT}${query}${appID}`);
+    const response = await fetch(`${API_ENDPOINT}${queryLocation}${queryUnit}${appID}`);
     const data = await response.json();
-    console.log(data);
-    console.log(data.coord.lat, data.coord.lon);
-    console.log(data.sys.country);
+    console.log('fetchWeatherInfo()', data);
+
     dispatch({
       type: GET_WEATHER,
       payload: data

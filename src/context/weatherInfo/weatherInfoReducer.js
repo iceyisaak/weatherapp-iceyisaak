@@ -18,6 +18,7 @@ export default (state, action) => {
       };
 
     case GET_WEATHER:
+      console.log('weatherInfoReducer', action.payload);
       return {
         ...state,
         weatherData: action.payload,
