@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from 'react';
+import moment from 'moment';
 import weatherInfoContext from './weatherInfoContext';
 import weatherInfoReducer from './weatherInfoReducer';
 import {
@@ -26,7 +27,8 @@ const WeatherInfoState = ({ children }) => {
       lat: '',
       lon: ''
     },
-    weatherData: {}
+    weatherData: {},
+    time: ''
   };
   let city = 'frankfurt';
   let unit = 'metric';
@@ -34,15 +36,22 @@ const WeatherInfoState = ({ children }) => {
   const [state, dispatch] = useReducer(weatherInfoReducer, initialState);
 
   // const API_ENDPOINT = `https://api.openweathermap.org/data/2.5/weather?q=frankfurt&appid=${API_KEY}`;
-  const API_ENDPOINT = `https://api.openweathermap.org/data/2.5/weather`;
+  const API_ENDPOINT_WEATHER = `https://api.openweathermap.org/data/2.5/weather`;
+  const API_ENDPOINT_FORECAST = `https://api.openweathermap.org/data/2.5/onecall`;
   const appID = `&appid=${API_KEY}`;
   const queryLocation = `?q=${city}`;
   let queryUnit = `&units=${unit}`;
 
   const fetchWeatherInfo = async () => {
-    const response = await fetch(`${API_ENDPOINT}${queryLocation}${queryUnit}${appID}`);
+    getCurrentWeatherData();
+  };
+
+  const getCurrentWeatherData = async () => {
+    const response = await fetch(`${API_ENDPOINT_WEATHER}${queryLocation}${queryUnit}${appID}`);
     const data = await response.json();
     console.log('fetchWeatherInfo()', data);
+    const location = `?lat=${data.coord.lat}&lon=${data.coord.lon}`;
+    console.log(location);
 
     dispatch({
       type: GET_WEATHER,
@@ -50,15 +59,31 @@ const WeatherInfoState = ({ children }) => {
     });
   };
 
-  // const getWeather = () => {
 
-  // };
+
+
+  const getUserLocation = (city, { coord }) => {
+
+    if (city) {
+      // l
+    }
+
+    if ({ coord }) {
+
+    }
+
+
+  };
+
+
 
   const setIsLoading = () => {
     dispatch({
       type: SET_IS_LOADING
     });
   };
+
+
 
   useEffect(() => {
     setIsLoading();
@@ -78,4 +103,10 @@ const WeatherInfoState = ({ children }) => {
 
 
 
-export default WeatherInfoState;
+export default WeatherInfoState;;
+
+/*
+1.gutUserLocation()
+- City Search or Device Location
+2. fetchWeatherData()
+*/

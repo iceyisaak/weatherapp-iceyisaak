@@ -10,7 +10,8 @@ const SearchBar = () => {
       </button>
       or
       <button>
-        Check Weather in My Area
+        {/* onClick={getUserCoord} */}
+        Get My Location
       </button>
     </form>
   );
