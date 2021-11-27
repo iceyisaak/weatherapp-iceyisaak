@@ -6,37 +6,41 @@ const WeatherDisplay = () => {
 
   const weatherInfoContext = useContext(WeatherInfoContext);
 
-
-
-
   const {
-    weatherData
+    weatherData,
+    userLocation
   } = weatherInfoContext;
 
+  console.log('weatherData', weatherData);
+
+
+
+
+
   const {
-    name,
-    sys,
-    weather,
-    main
-  } = weatherData;
+    lat,
+    lon,
+    city,
+    country
+  } = userLocation;
 
   return (
     <div>
       <h3>
-        {name}, {name && sys.country}
+        {city}, {country}
       </h3>
       <p>
-        {weather && weather[0].main}
+        {weatherData && weatherData.current.weather[0].description}
       </p>
       <div>
-        <img
-          src={`http://openweathermap.org/img/wn/${weather && weather[0].icon}@2x.png`}
-          alt={weather && weather[0].main}
-        />
+        {/* <img
+          src={`http://openweathermap.org/img/wn/${weatherData && weatherData.current.weather[0].icon}@2x.png`}
+          alt={weatherData && weatherData.current.main}
+        /> */}
 
       </div>
       <h1>
-        {main && Math.round(main.temp)}°C
+        {/* {main && Math.round(main.temp)}°C */}
       </h1>
     </div>
   );

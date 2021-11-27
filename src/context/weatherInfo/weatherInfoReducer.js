@@ -1,5 +1,5 @@
 import {
-  SEARCH_CITY,
+  SEARCH_LOCATION,
   GET_WEATHER,
   GET_USER_LOCATION,
   CLEAR_USER_LOCATION,
@@ -21,6 +21,13 @@ export default (state, action) => {
       return {
         ...state,
         weatherData: action.payload,
+        isLoading: false
+      };
+
+    case SEARCH_LOCATION:
+      return {
+        ...state,
+        userLocation: action.payload,
         isLoading: false
       };
 

@@ -3,10 +3,10 @@ import moment from 'moment';
 import weatherInfoContext from './weatherInfoContext';
 import weatherInfoReducer from './weatherInfoReducer';
 import {
-  SEARCH_CITY,
+  SEARCH_LOCATION,
   GET_WEATHER,
   GET_USER_LOCATION,
-  CLEAR_USER_LOCATIONCLEAR_USER_LOCATION,
+  CLEAR_USER_LOCATION,
   SET_IS_LOADING
 } from '../actions';
 
@@ -25,10 +25,11 @@ const WeatherInfoState = ({ children }) => {
     isLoading: false,
     userLocation: {
       lat: '',
-      lon: ''
+      lon: '',
+      city: '',
+      country: ''
     },
     weatherData: {},
-    time: ''
   };
   let city = 'frankfurt';
   let unit = 'metric';
@@ -36,41 +37,79 @@ const WeatherInfoState = ({ children }) => {
   const [state, dispatch] = useReducer(weatherInfoReducer, initialState);
 
   // const API_ENDPOINT = `https://api.openweathermap.org/data/2.5/weather?q=frankfurt&appid=${API_KEY}`;
-  const API_ENDPOINT_WEATHER = `https://api.openweathermap.org/data/2.5/weather`;
-  const API_ENDPOINT_FORECAST = `https://api.openweathermap.org/data/2.5/onecall`;
+  // const API_ENDPOINT_WEATHER = `https://api.openweathermap.org/data/2.5/weather`;
+  const API_ENDPOINT_WEATHER = `https://api.openweathermap.org/data/2.5/onecall`;
+  // https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
+  const API_ENDPOINT_GEOCODING = `http://api.openweathermap.org/geo/1.0/direct`;
   const appID = `&appid=${API_KEY}`;
   const queryLocation = `?q=${city}`;
   let queryUnit = `&units=${unit}`;
 
-  const fetchWeatherInfo = async () => {
-    getCurrentWeatherData();
-  };
 
-  const getCurrentWeatherData = async () => {
-    const response = await fetch(`${API_ENDPOINT_WEATHER}${queryLocation}${queryUnit}${appID}`);
+
+  const getWeatherData = async (lat, lon) => {
+    // const response = await fetch(`${API_ENDPOINT_WEATHER}${queryLocation}${queryUnit}${appID}`);
+    const location = `?lat=${lat}&lon=${lon}`;
+    const response = await fetch(`${API_ENDPOINT_WEATHER}${location}${appID}`);
     const data = await response.json();
     console.log('fetchWeatherInfo()', data);
-    const location = `?lat=${data.coord.lat}&lon=${data.coord.lon}`;
     console.log(location);
 
     dispatch({
       type: GET_WEATHER,
       payload: data
     });
+
+    console.log('CCCCC');
   };
 
 
+  const searchLocation = async (searchTerm) => {
+
+    setIsLoading();
+    console.log('AAAAA');
+    const res = await fetch(`${API_ENDPOINT_GEOCODING}?q=${searchTerm}${appID}`);
+    const data = await res.json();
+    // setSearchTerm(data);
+    // console.log('data', data[0].name);
+    console.log('data[0].lat', data[0].lat);
+    console.log('data[0].lon', data[0].lon);
+    console.log('data[0].name', data[0].name);
+    console.log('data[0].country', data[0].country);
+
+    const lat = data[0].lat;
+    const lon = data[0].lon;
+    const name = data[0].name;
+    const country = data[0].country;
+
+    getWeatherData(lat, lon);
+    // getUserLocation(lat, lon, name, country);
+
+    dispatch({
+      type: SEARCH_LOCATION,
+      payload: {
+        lat: lat,
+        lon: lon,
+        city: name,
+        country: country
+      },
+    });
+
+    console.log('BBBBB');
+  };
 
 
-  const getUserLocation = (city, { coord }) => {
+  const getUserLocation = (lat, lon, name, country) => {
 
-    if (city) {
-      // l
+    if (lat && lon) {
+      console.log('lat', lat);
+      console.log('lon', lon);
     }
 
-    if ({ coord }) {
-
+    if (name) {
+      console.log('city, country', name, country);
     }
+
 
 
   };
@@ -85,22 +124,26 @@ const WeatherInfoState = ({ children }) => {
 
 
 
-  useEffect(() => {
-    setIsLoading();
-    fetchWeatherInfo();
-  }, []);
+  // useEffect(() => {
+  //   setIsLoading();
+  //   fetchWeatherInfo();
+  // }, []);
+
+  console.log('state.userLocation', state.userLocation);
+
 
   return (
     <weatherInfoContext.Provider
       value={{
-        weatherData: state.weatherData
+        weatherData: state.weatherData,
+        userLocation: state.userLocation,
+        searchLocation
       }}
     >
       {children}
     </weatherInfoContext.Provider>
   );
 };
-
 
 
 export default WeatherInfoState;;
