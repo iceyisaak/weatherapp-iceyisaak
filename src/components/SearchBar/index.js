@@ -9,13 +9,14 @@ const SearchBar = () => {
   const [city, setCity] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
 
+  // const {
+  //   searchLocation
+  // } = weatherInfoContext;
 
 
   // useEffect(() => {
   //   searchLocation();
   // }, []);
-
-
 
 
   const onSubmit = (e) => {
@@ -26,7 +27,6 @@ const SearchBar = () => {
 
 
   const onChangeHandler = (e) => {
-
     setSearchTerm(e.target.value);
   };
 

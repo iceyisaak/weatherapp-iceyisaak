@@ -39,7 +39,6 @@ const WeatherInfoContext = ({ children }) => {
 
 
 
-
   const getWeatherData = async (lat, lon) => {
     // const response = await fetch(`${API_ENDPOINT_WEATHER}${queryLocation}${queryUnit}${appID}`);
     const location = `?lat=${lat}&lon=${lon}`;
@@ -55,21 +54,21 @@ const WeatherInfoContext = ({ children }) => {
 
     setIsLoading(true);
     console.log('AAAAA');
-    const res = await fetch(`${API_ENDPOINT_GEOCODING}?q=${searchTerm}${appID}`);
-    const data = await res.json();
-    // setSearchTerm(data);
-    // console.log('data', data[0].name);
-    console.log('data[0].lat', data[0].lat);
-    console.log('data[0].lon', data[0].lon);
-    console.log('data[0].name', data[0].name);
-    console.log('data[0].country', data[0].country);
+    // const res = await fetch(`${API_ENDPOINT_GEOCODING}?q=${searchTerm}${appID}`);
+    // const data = await res.json();
+    // // setSearchTerm(data);
+    // // console.log('data', data[0].name);
+    // console.log('data[0].lat', data[0].lat);
+    // console.log('data[0].lon', data[0].lon);
+    // console.log('data[0].name', data[0].name);
+    // console.log('data[0].country', data[0].country);
 
-    const lat = data[0].lat;
-    const lon = data[0].lon;
-    const name = data[0].name;
-    const country = data[0].country;
+    // const lat = data[0].lat;
+    // const lon = data[0].lon;
+    // const name = data[0].name;
+    // const country = data[0].country;
 
-    getWeatherData(lat, lon);
+    // getWeatherData(lat, lon);
     setIsLoading(false);
 
     console.log('BBBBB');
@@ -80,15 +79,15 @@ const WeatherInfoContext = ({ children }) => {
 
 
 
-    return (
-      <weatherInfoContext.Provider
-        value={{
-          weatherData,
-          searchLocation,
-          isLoading
-        }}
-      >
-        {children}
+  return (
+    <weatherInfoContext.Provider
+      value={{
+        weatherData,
+        searchLocation,
+        isLoading
+      }}
+    >
+      {children}
       </weatherInfoContext.Provider>
     );
   };
