@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import WeatherInfoState from './context/weatherInfo/WeatherInfoState';
+import WeatherInfoContext from './context/weatherInfo/WeatherInfoContext';
 import Home from '../src/components/Home';
 
 import '../src/styles/GlobalStyle.scss';
 
 ReactDOM.render(
   <React.StrictMode>
-    <WeatherInfoState>
+    <WeatherInfoContext>
       <Home />
-    </WeatherInfoState>
+    </WeatherInfoContext>
   </React.StrictMode>,
   document.getElementById('root')
 );

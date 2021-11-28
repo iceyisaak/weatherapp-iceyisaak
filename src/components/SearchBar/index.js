@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useContext } from "react/cjs/react.development";
-import WeatherInfoContext from '../../context/weatherInfo/weatherInfoContext';
+import WeatherInfoContext from '../../context/weatherInfo/WeatherInfoContext';
 
 
 const SearchBar = () => {

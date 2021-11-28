@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import WeatherInfoState from "../../context/weatherInfo/WeatherInfoState";
+import WeatherInfoContext from "../../context/weatherInfo/WeatherInfoContext";
 
 const WeatherDisplay = () => {
 
@@ -8,7 +8,7 @@ const WeatherDisplay = () => {
   const {
     weatherData,
     // userLocation
-  } = WeatherInfoState;
+  } = WeatherInfoContext;
 
   console.log('weatherData', weatherData);
 
