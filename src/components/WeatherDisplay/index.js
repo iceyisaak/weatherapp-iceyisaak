@@ -1,36 +1,32 @@
 import { useContext } from "react";
 
-import WeatherInfoContext from "../../context/weatherInfo/weatherInfoContext";
+import WeatherInfoState from "../../context/weatherInfo/WeatherInfoState";
 
 const WeatherDisplay = () => {
 
-  const weatherInfoContext = useContext(WeatherInfoContext);
 
   const {
     weatherData,
-    userLocation
-  } = weatherInfoContext;
+    // userLocation
+  } = WeatherInfoState;
 
   console.log('weatherData', weatherData);
 
 
-
-
-
-  const {
-    lat,
-    lon,
-    city,
-    country
-  } = userLocation;
+  // const {
+  //   lat,
+  //   lon,
+  //   city,
+  //   country
+  // } = userLocation;
 
   return (
     <div>
       <h3>
-        {city}, {country}
+        {/* {city}, {country} */}
       </h3>
       <p>
-        {weatherData && weatherData.current.weather[0].description}
+        {/* {weatherData && weatherData.current.weather[0].description} */}
       </p>
       <div>
         {/* <img

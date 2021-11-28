@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, createContext } from 'react';
 import moment from 'moment';
 import weatherInfoContext from './weatherInfoContext';
 import weatherInfoReducer from './weatherInfoReducer';
@@ -44,6 +44,9 @@ const WeatherInfoState = ({ children }) => {
   const appID = `&appid=${API_KEY}`;
   const queryLocation = `?q=${city}`;
   let queryUnit = `&units=${unit}`;
+
+
+  const weatherInfoContext = createContext();
 
 
 
@@ -137,7 +140,8 @@ const WeatherInfoState = ({ children }) => {
       value={{
         weatherData: state.weatherData,
         userLocation: state.userLocation,
-        searchLocation
+        searchLocation,
+
       }}
     >
       {children}
@@ -153,3 +157,6 @@ export default WeatherInfoState;;
 - City Search or Device Location
 2. fetchWeatherData()
 */
+
+
+

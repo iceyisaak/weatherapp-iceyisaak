@@ -1,5 +1,5 @@
-import { createContext } from 'react';
+// import { createContext } from 'react';
 
-const weatherInfoContext = createContext();
+// const weatherInfoContext = createContext();
 
-export default weatherInfoContext;
+// export default weatherInfoContext;
