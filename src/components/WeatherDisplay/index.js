@@ -1,42 +1,40 @@
 import { useContext } from "react";
-
-import WeatherInfoContext from "../../context/weatherInfo/WeatherInfoContext";
+import { WeatherInfoContext } from "../../context/weatherInfo/WeatherInfoContext";
 
 const WeatherDisplay = () => {
 
-
   const {
-    weatherData,
-    // userLocation
-  } = WeatherInfoContext;
+    // weatherData,
+    weatherData: {
+      name,
+      sys,
+      weather,
+      main
+    }
 
-  console.log('weatherData', weatherData);
+  } = useContext(WeatherInfoContext);
 
 
-  // const {
-  //   lat,
-  //   lon,
-  //   city,
-  //   country
-  // } = userLocation;
+  // console.log('<WeatherDisplay/>');
+
 
   return (
     <div>
       <h3>
-        {/* {city}, {country} */}
+        {name}, {sys && sys.country}
       </h3>
       <p>
-        {/* {weatherData && weatherData.current.weather[0].description} */}
+        {weather && weather[0].description}
       </p>
       <div>
-        {/* <img
-          src={`http://openweathermap.org/img/wn/${weatherData && weatherData.current.weather[0].icon}@2x.png`}
-          alt={weatherData && weatherData.current.main}
-        /> */}
+        <img
+          src={`http://openweathermap.org/img/wn/${weather && weather[0].icon}@2x.png`}
+          alt={weather && weather[0].main}
+        />
 
       </div>
       <h1>
-        {/* {main && Math.round(main.temp)}°C */}
+        {main && Math.round(main.temp)}°C
       </h1>
     </div>
   );

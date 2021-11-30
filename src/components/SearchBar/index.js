@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 import { useContext } from "react/cjs/react.development";
-import WeatherInfoContext from '../../context/weatherInfo/WeatherInfoContext';
+import { WeatherInfoContext } from '../../context/weatherInfo/WeatherInfoContext';
 
 
 const SearchBar = () => {
 
-  const weatherInfoContext = useContext(WeatherInfoContext);
-  const [city, setCity] = useState('');
+  const {
+    searchLocation
+  } = useContext(WeatherInfoContext);
+
+
   const [searchTerm, setSearchTerm] = useState('');
 
-  // const {
-  //   searchLocation
-  // } = weatherInfoContext;
-
+  // console.log(weatherInfoContext);
 
   // useEffect(() => {
   //   searchLocation();
@@ -21,24 +21,27 @@ const SearchBar = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    weatherInfoContext.searchLocation(searchTerm);
+    searchLocation(searchTerm);
     setSearchTerm('');
   };
 
 
-  const onChangeHandler = (e) => {
-    setSearchTerm(e.target.value);
+  const onChangeHandler = (searchTerm) => {
+    setSearchTerm(searchTerm);
   };
 
 
   return (
     <form onSubmit={onSubmit}>
       <h2>Search City</h2>
+      <p>
+        {searchTerm}
+      </p>
       <input
         type='text'
         placeholder='e.g. Frankfurt'
+        onChange={(e) => onChangeHandler(e.target.value)}
         value={searchTerm}
-        onChange={onChangeHandler}
       />
       <button>
         Check Weather

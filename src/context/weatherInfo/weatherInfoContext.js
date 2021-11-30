@@ -1,6 +1,5 @@
 import {
   useState,
-  useEffect,
   createContext
 } from 'react';
 
@@ -14,95 +13,72 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 
+export const WeatherInfoContext = createContext();
 
-const WeatherInfoContext = ({ children }) => {
+const WeatherInfoContextProvider = ({ children }) => {
 
-  const weatherInfoContext = createContext();
 
   const [isLoading, setIsLoading] = useState(false);
   const [weatherData, setWeatherData] = useState({});
+  const [hasLocation, setHasLocation] = useState(false);
+  // const [lat, setLat] = useState(JSON.parse(localStorage.getItem('lat') || []));
+  // const [lon, setLon] = useState(JSON.parse(localStorage.getItem('lon') || []));
 
 
-  let city = 'frankfurt';
+  // let city = 'frankfurt';
   let unit = 'metric';
+  // let lat = 50.1109;
+  // let lon = 8.6821;
 
 
-  // const API_ENDPOINT = `https://api.openweathermap.org/data/2.5/weather?q=frankfurt&appid=${API_KEY}`;
-  // const API_ENDPOINT_WEATHER = `https://api.openweathermap.org/data/2.5/weather`;
-  const API_ENDPOINT_WEATHER = `https://api.openweathermap.org/data/2.5/onecall`;
+  const API_ENDPOINT = `https://api.openweathermap.org/data/2.5/weather?q=frankfurt&appid=${API_KEY}`;
+  const API_ENDPOINT_WEATHER = `https://api.openweathermap.org/data/2.5/weather`;
+  // const API_ENDPOINT_WEATHER = `https://api.openweathermap.org/data/2.5/onecall`;
   // https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
   const API_ENDPOINT_GEOCODING = `http://api.openweathermap.org/geo/1.0/direct`;
   const appID = `&appid=${API_KEY}`;
-  const queryLocation = `?q=${city}`;
+  // const queryLocation = `?q=${city}`;
   let queryUnit = `&units=${unit}`;
-
-
-
-
-  const getWeatherData = async (lat, lon) => {
-    // const response = await fetch(`${API_ENDPOINT_WEATHER}${queryLocation}${queryUnit}${appID}`);
-    const location = `?lat=${lat}&lon=${lon}`;
-    const response = await fetch(`${API_ENDPOINT_WEATHER}${location}${appID}`);
-    const data = await response.json();
-    console.log('fetchWeatherInfo()', data);
-    console.log(location);
-    console.log('CCCCC');
-  };
 
 
   const searchLocation = async (searchTerm) => {
 
     setIsLoading(true);
-    console.log('AAAAA');
-    // const res = await fetch(`${API_ENDPOINT_GEOCODING}?q=${searchTerm}${appID}`);
-    // const data = await res.json();
-    // // setSearchTerm(data);
-    // // console.log('data', data[0].name);
-    // console.log('data[0].lat', data[0].lat);
-    // console.log('data[0].lon', data[0].lon);
-    // console.log('data[0].name', data[0].name);
-    // console.log('data[0].country', data[0].country);
-
-    // const lat = data[0].lat;
-    // const lon = data[0].lon;
-    // const name = data[0].name;
-    // const country = data[0].country;
-
-    // getWeatherData(lat, lon);
+    const city = `?q=${searchTerm}`;
+    setHasLocation(true);
+    const response = await fetch(`${API_ENDPOINT_WEATHER}${city}${queryUnit}${appID}`);
+    const data = await response.json();
+    console.log('searchLocation()');
+    setWeatherData(data);
+    setLocation(data);
     setIsLoading(false);
-
-    console.log('BBBBB');
   };
 
 
-
-
+  const setLocation = (data) => {
+    console.log('city:', data.name);
+    console.log('lat:', data.coord.lat);
+    console.log('lon:', data.coord.lon);
+  };
 
 
   return (
-    <weatherInfoContext.Provider
+    <WeatherInfoContext.Provider
       value={{
         weatherData,
         searchLocation,
-        isLoading
+        isLoading,
+        hasLocation
       }}
     >
       {children}
-      </weatherInfoContext.Provider>
-    );
-  };
+    </WeatherInfoContext.Provider>
+  );
+};
 
-
-  export default WeatherInfoContext;
+export default WeatherInfoContextProvider;
 
 
 // // Logic
 // 1. getWeatherByCity
  //2 . getWeatherByCoord
-
-
-
-
-
-
-
