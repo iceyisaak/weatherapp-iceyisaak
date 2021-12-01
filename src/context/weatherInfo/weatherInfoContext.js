@@ -55,6 +55,7 @@ const WeatherInfoContextProvider = ({ children }) => {
       console.log('cod === 404');
       console.log('ERROR: City Not Found.');
       setIsLoading(false);
+
     }
 
   };
