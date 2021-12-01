@@ -10,7 +10,8 @@ const WeatherDisplay = () => {
       sys,
       weather,
       main
-    }
+    },
+    resetLocation
 
   } = useContext(WeatherInfoContext);
 
@@ -20,6 +21,9 @@ const WeatherDisplay = () => {
 
   return (
     <div>
+      <button onClick={resetLocation}>
+        Reset Location
+      </button>
       <h3>
         {name}, {sys && sys.country}
       </h3>
