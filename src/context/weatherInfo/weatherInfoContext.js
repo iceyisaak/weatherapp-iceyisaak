@@ -42,8 +42,12 @@ const WeatherInfoContextProvider = ({ children }) => {
     setHasLocation(true);
     const response = await fetch(`${API_ENDPOINT_WEATHER}${city}${queryUnit}${appID}`);
     const data = await response.json();
+
+    // ERROR IS LOGGED && APP IS STOPPED
     // console.log('searchLocation()', data.cod, data.message);
 
+
+    // Only works without error
     if (data.cod === 200) {
       console.log('cod === 200');
       setWeatherData(data);
@@ -51,6 +55,8 @@ const WeatherInfoContextProvider = ({ children }) => {
       setIsLoading(false);
     }
 
+
+    // ERROR NOT SHOWING UP
     if (data.cod === 404) {
       console.log('cod === 404');
       console.log('ERROR: City Not Found.');
@@ -59,6 +65,31 @@ const WeatherInfoContextProvider = ({ children }) => {
     }
 
   };
+
+  const getCoords = () => {
+
+    setIsLoading(true);
+    navigator.geolocation.getCurrentPosition((position) => {
+      searchPosition(position);
+    });
+  };
+
+
+  const searchPosition = async (position) => {
+
+    console.log(position.coords.latitude, position.coords.longitude);
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    const spot = `?lat=${lat}&lon=${lon}`;
+
+    // api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
+    const response = await fetch(`${API_ENDPOINT_WEATHER}${spot}${appID}`);
+    const data = await response.json();
+    searchLocation(data.name);
+    setIsLoading(false);
+  };
+
+
 
 
   const setLocation = (data) => {
@@ -93,7 +124,8 @@ const WeatherInfoContextProvider = ({ children }) => {
         searchLocation,
         isLoading,
         hasLocation,
-        resetLocation
+        resetLocation,
+        getCoords
       }}
     >
       {children}

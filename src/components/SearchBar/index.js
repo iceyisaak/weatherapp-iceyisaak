@@ -6,7 +6,8 @@ import { WeatherInfoContext } from '../../context/weatherInfo/WeatherInfoContext
 const SearchBar = () => {
 
   const {
-    searchLocation
+    searchLocation,
+    getCoords
   } = useContext(WeatherInfoContext);
 
 
@@ -47,8 +48,9 @@ const SearchBar = () => {
         Check Weather
       </button>
       or
-      <button>
-        {/* onClick={getUserCoord} */}
+      <button
+        onClick={getCoords}
+      >
         Get My Location
       </button>
     </form>
