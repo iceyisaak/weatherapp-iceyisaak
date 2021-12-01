@@ -28,16 +28,18 @@ const SearchBar = () => {
 
 
   const onChangeHandler = (searchTerm) => {
-    setSearchTerm(searchTerm);
+
+    if (searchTerm.trim() !== null) {
+      setSearchTerm(searchTerm);
+    } else {
+      alert('Pls enter your city name.');
+    }
   };
 
 
   return (
     <form onSubmit={onSubmit}>
       <h2>Search City</h2>
-      <p>
-        {searchTerm}
-      </p>
       <input
         type='text'
         placeholder='e.g. Frankfurt'
