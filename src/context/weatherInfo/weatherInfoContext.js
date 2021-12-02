@@ -44,7 +44,7 @@ const WeatherInfoContextProvider = ({ children }) => {
     const data = await response.json();
 
     // ERROR IS LOGGED && APP IS STOPPED
-    // console.log('searchLocation()', data.cod, data.message);
+    console.log('searchLocation()', data.cod, data.message);
 
 
     // Only works without error
@@ -53,16 +53,13 @@ const WeatherInfoContextProvider = ({ children }) => {
       setWeatherData(data);
       setLocation(data);
       setIsLoading(false);
-    }
-
-
-    // ERROR NOT SHOWING UP
-    if (data.cod === 404) {
+    } else if (data.cod === '404') {
       console.log('cod === 404');
       console.log('ERROR: City Not Found.');
       setIsLoading(false);
-
     }
+
+    console.log('CCCCC');
 
   };
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useContext } from "react/cjs/react.development";
 import { WeatherInfoContext } from '../../context/weatherInfo/WeatherInfoContext';
 
@@ -13,6 +13,7 @@ const SearchBar = () => {
 
   const [searchTerm, setSearchTerm] = useState('');
 
+
   // console.log(weatherInfoContext);
 
   // useEffect(() => {
@@ -21,18 +22,23 @@ const SearchBar = () => {
 
 
   const onSubmit = (e) => {
+
     e.preventDefault();
+    validateSearch(e);
     searchLocation(searchTerm);
     setSearchTerm('');
   };
 
 
   const onChangeHandler = (searchTerm) => {
+    setSearchTerm(searchTerm);
+  };
 
-    if (searchTerm.trim() !== null) {
-      setSearchTerm(searchTerm);
-    } else {
-      alert('Pls enter your city name.');
+
+  const validateSearch = (e) => {
+
+    if (e.target.value === 0 || e.target.value === null) {
+      console.log('ERROR');
     }
   };
 
@@ -45,6 +51,7 @@ const SearchBar = () => {
         placeholder='e.g. Frankfurt'
         onChange={(e) => onChangeHandler(e.target.value)}
         value={searchTerm}
+        required
       />
       <button>
         Check Weather
