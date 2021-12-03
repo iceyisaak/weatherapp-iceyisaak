@@ -1,8 +1,8 @@
 import {
   useState,
+  useEffect,
   createContext
 } from 'react';
-import { useEffect } from 'react/cjs/react.development';
 
 
 let API_KEY;
@@ -20,18 +20,19 @@ const WeatherInfoContextProvider = ({ children }) => {
 
 
   const [isLoading, setIsLoading] = useState(false);
+  const [errorInfo, setErrorInfo] = useState({
+    statusCode: '',
+    statusMessage: ''
+  });
   const [weatherData, setWeatherData] = useState({});
   const [hasLocation, setHasLocation] = useState(false);
 
   let unit = 'metric';
 
-  const API_ENDPOINT = `https://api.openweathermap.org/data/2.5/weather?q=frankfurt&appid=${API_KEY}`;
   const API_ENDPOINT_WEATHER = `https://api.openweathermap.org/data/2.5/weather`;
   // const API_ENDPOINT_WEATHER = `https://api.openweathermap.org/data/2.5/onecall`;
   // https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
-  const API_ENDPOINT_GEOCODING = `http://api.openweathermap.org/geo/1.0/direct`;
   const appID = `&appid=${API_KEY}`;
-  // const queryLocation = `?q=${city}`;
   let queryUnit = `&units=${unit}`;
 
 
@@ -39,29 +40,30 @@ const WeatherInfoContextProvider = ({ children }) => {
 
     setIsLoading(true);
     const city = `?q=${searchTerm}`;
-    setHasLocation(true);
     const response = await fetch(`${API_ENDPOINT_WEATHER}${city}${queryUnit}${appID}`);
     const data = await response.json();
 
-    // ERROR IS LOGGED && APP IS STOPPED
-    console.log('searchLocation()', data.cod, data.message);
-
-
-    // Only works without error
     if (data.cod === 200) {
       console.log('cod === 200');
+      setHasLocation(true);
       setWeatherData(data);
       setLocation(data);
       setIsLoading(false);
+
     } else if (data.cod === '404') {
-      console.log('cod === 404');
-      console.log('ERROR: City Not Found.');
+      setErrorInfo({
+        statusCode: data.cod,
+        statusMessage: data.message
+      });
       setIsLoading(false);
     }
+
+    console.log('errorInfo:', errorInfo);
 
     console.log('CCCCC');
 
   };
+
 
   const getCoords = () => {
 
@@ -103,6 +105,12 @@ const WeatherInfoContextProvider = ({ children }) => {
   const resetLocation = () => {
     localStorage.removeItem('weatherLocation');
     setHasLocation(false);
+    setIsLoading(false);
+    setWeatherData({});
+    setErrorInfo({
+      statusCode: '',
+      statusMessage: ''
+    });
   };
 
 
@@ -120,6 +128,7 @@ const WeatherInfoContextProvider = ({ children }) => {
         weatherData,
         searchLocation,
         isLoading,
+        errorInfo,
         hasLocation,
         resetLocation,
         getCoords

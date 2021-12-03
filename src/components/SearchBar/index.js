@@ -7,8 +7,14 @@ const SearchBar = () => {
 
   const {
     searchLocation,
-    getCoords
+    getCoords,
+    errorInfo: {
+      statusCode,
+      statusMessage
+    }
   } = useContext(WeatherInfoContext);
+
+  console.log('errorInfo: (searchBar)', statusCode, statusMessage);
 
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -46,6 +52,9 @@ const SearchBar = () => {
   return (
     <form onSubmit={onSubmit}>
       <h2>Search City</h2>
+      <p>
+        {statusCode && statusMessage}
+      </p>
       <input
         type='text'
         placeholder='e.g. Frankfurt'

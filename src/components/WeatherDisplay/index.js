@@ -4,14 +4,13 @@ import { WeatherInfoContext } from "../../context/weatherInfo/WeatherInfoContext
 const WeatherDisplay = () => {
 
   const {
-    // weatherData,
     weatherData: {
       name,
       sys,
       weather,
       main
     },
-    resetLocation
+    resetLocation,
 
   } = useContext(WeatherInfoContext);
 
@@ -27,6 +26,9 @@ const WeatherDisplay = () => {
       <h3>
         {name}, {sys && sys.country}
       </h3>
+      <p>
+        {/* {errorInfo} */}
+      </p>
       <p>
         {weather && weather[0].description}
       </p>
