@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useContext } from "react/cjs/react.development";
+import { useState, useContext } from "react";
 import { WeatherInfoContext } from '../../context/weatherInfo/WeatherInfoContext';
 
 

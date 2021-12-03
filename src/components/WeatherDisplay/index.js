@@ -15,9 +15,6 @@ const WeatherDisplay = () => {
   } = useContext(WeatherInfoContext);
 
 
-  // console.log('<WeatherDisplay/>');
-
-
   return (
     <div>
       <button onClick={resetLocation}>
@@ -26,9 +23,6 @@ const WeatherDisplay = () => {
       <h3>
         {name}, {sys && sys.country}
       </h3>
-      <p>
-        {/* {errorInfo} */}
-      </p>
       <p>
         {weather && weather[0].description}
       </p>

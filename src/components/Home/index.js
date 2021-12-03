@@ -1,8 +1,7 @@
+import { useContext } from 'react';
 import SearchBar from '../SearchBar';
 import WeatherDisplay from '../WeatherDisplay';
-
 import { WeatherInfoContext } from '../../context/weatherInfo/WeatherInfoContext';
-import { useContext } from 'react';
 
 const Home = () => {
 
