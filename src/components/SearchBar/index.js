@@ -14,23 +14,11 @@ const SearchBar = () => {
     }
   } = useContext(WeatherInfoContext);
 
-  console.log('errorInfo: (searchBar)', statusCode, statusMessage);
-
-
   const [searchTerm, setSearchTerm] = useState('');
-
-
-  // console.log(weatherInfoContext);
-
-  // useEffect(() => {
-  //   searchLocation();
-  // }, []);
-
 
   const onSubmit = (e) => {
 
     e.preventDefault();
-    validateSearch(e);
     searchLocation(searchTerm);
     setSearchTerm('');
   };
@@ -38,14 +26,6 @@ const SearchBar = () => {
 
   const onChangeHandler = (searchTerm) => {
     setSearchTerm(searchTerm);
-  };
-
-
-  const validateSearch = (e) => {
-
-    if (e.target.value === 0 || e.target.value === null) {
-      console.log('ERROR');
-    }
   };
 
 

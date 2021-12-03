@@ -44,7 +44,6 @@ const WeatherInfoContextProvider = ({ children }) => {
     const data = await response.json();
 
     if (data.cod === 200) {
-      console.log('cod === 200');
       setHasLocation(true);
       setWeatherData(data);
       setLocation(data);
@@ -58,9 +57,6 @@ const WeatherInfoContextProvider = ({ children }) => {
       setIsLoading(false);
     }
 
-    console.log('errorInfo:', errorInfo);
-
-    console.log('CCCCC');
 
   };
 
@@ -76,7 +72,6 @@ const WeatherInfoContextProvider = ({ children }) => {
 
   const searchPosition = async (position) => {
 
-    console.log(position.coords.latitude, position.coords.longitude);
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
     const spot = `?lat=${lat}&lon=${lon}`;
