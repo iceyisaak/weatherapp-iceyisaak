@@ -38,6 +38,20 @@ const WeatherInfoContextProvider = ({ children }) => {
 
   const searchLocation = async (searchTerm) => {
 
+
+    if (searchTerm === '') {
+      setErrorInfo({
+        statusCode: '401',
+        statusMessage: 'Please Enter Location'
+      });
+      return;
+    }
+
+    setErrorInfo({
+      statusCode: '',
+      statusMessage: ''
+    });
+
     setIsLoading(true);
     const city = `?q=${searchTerm}`;
     const response = await fetch(`${API_ENDPOINT_WEATHER}${city}${queryUnit}${appID}`);
