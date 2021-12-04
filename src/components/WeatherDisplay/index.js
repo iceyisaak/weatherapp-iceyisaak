@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { WeatherInfoContext } from "../../context/weatherInfo/WeatherInfoContext";
+import { IoLocationOutline } from 'react-icons/io5';
 
 const WeatherDisplay = () => {
 
@@ -21,7 +22,7 @@ const WeatherDisplay = () => {
         Reset Location
       </button>
       <h3>
-        {name}, {sys && sys.country}
+        <IoLocationOutline />  {name}, {sys && sys.country}
       </h3>
       <p>
         {weather && weather[0].description}

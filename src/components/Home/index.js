@@ -3,6 +3,8 @@ import SearchBar from '../SearchBar';
 import WeatherDisplay from '../WeatherDisplay';
 import { WeatherInfoContext } from '../../context/weatherInfo/WeatherInfoContext';
 
+import style from './home.module.scss';
+
 const Home = () => {
 
   const {
@@ -11,8 +13,8 @@ const Home = () => {
   } = useContext(WeatherInfoContext);
 
   return (
-    <div>
-      <h1>Weatherapp</h1>
+    <div className={`${style['Home']}`}>
+      <header className={`${style['header']}`}>Weatherapp</header>
       {isLoading && <h1>LOADING...</h1>}
       {!hasLocation ?
         <SearchBar /> :

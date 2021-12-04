@@ -57,20 +57,20 @@ const WeatherInfoContextProvider = ({ children }) => {
     const response = await fetch(`${API_ENDPOINT_WEATHER}${city}${queryUnit}${appID}`);
     const data = await response.json();
 
+
     if (data.cod === 200) {
       setHasLocation(true);
       setWeatherData(data);
       setLocation(data);
       setIsLoading(false);
 
-    } else if (data.cod === '404') {
+    } else {
       setErrorInfo({
         statusCode: data.cod,
         statusMessage: data.message
       });
       setIsLoading(false);
     }
-
 
   };
 
@@ -128,6 +128,7 @@ const WeatherInfoContextProvider = ({ children }) => {
     if (weatherLocation) {
       searchLocation(weatherLocation.city);
     }
+    // eslint-disable-next-line
   }, [hasLocation]);
 
 
