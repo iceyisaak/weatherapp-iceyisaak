@@ -13,14 +13,18 @@ const Home = () => {
   } = useContext(WeatherInfoContext);
 
   return (
-    <div className={`${style['Home']}`}>
-      <header className={`${style['header']}`}>Weatherapp</header>
-      {isLoading && <h1>LOADING...</h1>}
-      {!hasLocation ?
-        <SearchBar /> :
-        <WeatherDisplay />
-      }
-    </div>
+    <>
+      <div className={`${style['Home']}`}>
+        <header className={`${style['header']}`}>Weatherapp</header>
+        <div className={`${style['container']}`}>
+          {isLoading && <h1>LOADING...</h1>}
+          {!hasLocation ?
+            <SearchBar /> :
+            <WeatherDisplay />
+          }
+        </div>
+      </div>
+    </>
   );
 };
 
