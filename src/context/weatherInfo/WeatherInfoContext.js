@@ -2,12 +2,14 @@ import { useState, useEffect, createContext } from 'react';
 
 
 let API_KEY;
+API_KEY = process.env.REACT_APP_OPENWEATHERMAP_API_KEY;
 
-if (process.env.NODE_ENV !== 'production') {
-  API_KEY = process.env.REACT_APP_OPENWEATHERMAP_API_KEY;
-} else {
-  API_KEY = process.env.OPENWEATHERMAP_API_KEY;
-}
+
+// if (process.env.NODE_ENV !== 'production') {
+//   API_KEY = process.env.REACT_APP_OPENWEATHERMAP_API_KEY;
+// } else {
+//   API_KEY = process.env.OPENWEATHERMAP_API_KEY;
+// }
 
 
 export const WeatherInfoContext = createContext();
