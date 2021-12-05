@@ -1,8 +1,4 @@
-import {
-  useState,
-  useEffect,
-  createContext
-} from 'react';
+import { useState, useEffect, createContext } from 'react';
 
 
 let API_KEY;
@@ -57,13 +53,11 @@ const WeatherInfoContextProvider = ({ children }) => {
     const response = await fetch(`${API_ENDPOINT_WEATHER}${city}${queryUnit}${appID}`);
     const data = await response.json();
 
-
     if (data.cod === 200) {
       setHasLocation(true);
       setWeatherData(data);
       setLocation(data);
       setIsLoading(false);
-
     } else {
       setErrorInfo({
         statusCode: data.cod,
@@ -90,7 +84,6 @@ const WeatherInfoContextProvider = ({ children }) => {
     const lon = position.coords.longitude;
     const spot = `?lat=${lat}&lon=${lon}`;
 
-    // api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
     const response = await fetch(`${API_ENDPOINT_WEATHER}${spot}${appID}`);
     const data = await response.json();
     searchLocation(data.name);
@@ -150,8 +143,3 @@ const WeatherInfoContextProvider = ({ children }) => {
 };
 
 export default WeatherInfoContextProvider;
-
-
-// // Logic
-// 1. getWeatherByCity
- //2 . getWeatherByCoord
